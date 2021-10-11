@@ -1,7 +1,9 @@
 package br.com.luizalabs.favoriteproducts.customer;
 
+import br.com.luizalabs.favoriteproducts.customer.exception.InvalidCustomerEmailException;
 import br.com.luizalabs.favoriteproducts.customer.exception.InvalidCustomerNameException;
 import org.junit.jupiter.api.Test;
+import java.util.Arrays;
 import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -11,12 +13,34 @@ public class CustomerTest {
 
     private static final UUID DEFAULT_ID = UUID.fromString("123e4567-e89b-42d3-a456-556642440000");
     private static final String DEFAULT_NAME = "Customer Name";
-    private static final String DEFAULT_EMAIL = "customer.name@mail.test";
+    private static final String DEFAULT_EMAIL = "customer.name@test.com";
     private static final String UPDATED_NAME = "New Customer Name";
-    private static final String UPDATED_EMAIL = "new.customer.name@mail.test";
+    private static final String UPDATED_EMAIL = "new.customer.name@test.com";
 
     private static final String EMPTY_STRING = "";
     private static final String BLANK_STRING = " ";
+
+    private static final String[] INVALID_EMAILS = new String[] {
+        "plainaddress",
+        "#@%^%#$@#$@#.com",
+        "@example.com",
+        "Joe Smith <email@example.com>",
+        "email.example.com",
+        "email@example@example.com",
+        ".email@example.com",
+        "email.@example.com",
+        "email..email@example.com",
+        "email@example.com (Joe Smith)",
+        "email@example",
+        "email@-example.com",
+        "email@example.web",
+        "email@111.222.333.44444",
+        "email@example..com",
+        "Abc..123@example.com",
+        "\"(),:;<>[\\]@example.com",
+        "just\"not\"right@example.com",
+        "this\\ is\"really\"not\\allowed@example.com"
+    };
 
     // region new customer
 
@@ -44,6 +68,11 @@ public class CustomerTest {
     @Test
     public void shouldThrowsInvalidCustomerNameExceptionWhenANewCustomerIsCreatedWithBlankName() {
         assertThrows(InvalidCustomerNameException.class, () -> new Customer(BLANK_STRING, DEFAULT_EMAIL));
+    }
+
+    @Test
+    public void shouldThrowsInvalidCustomerEmailExceptionWhenANewCustomerIsCreatedWithInvalidEmail() {
+        Arrays.stream(INVALID_EMAILS).forEach((email) -> assertThrows(InvalidCustomerEmailException.class, () -> new Customer(DEFAULT_NAME, email)));
     }
 
     // endregion
@@ -74,6 +103,11 @@ public class CustomerTest {
     @Test
     public void shouldThrowsInvalidCustomerNameExceptionWhenAnExistingCustomerIsCreatedWithBlankName() {
         assertThrows(InvalidCustomerNameException.class, () -> new Customer(DEFAULT_ID, BLANK_STRING, DEFAULT_EMAIL, CustomerStatus.ACTIVE));
+    }
+
+    @Test
+    public void shouldThrowsInvalidCustomerEmailExceptionWhenAnExistingCustomerIsCreatedWithInvalidEmail() {
+        Arrays.stream(INVALID_EMAILS).forEach((email) -> assertThrows(InvalidCustomerEmailException.class, () -> new Customer(DEFAULT_NAME, email)));
     }
 
     // endregion
@@ -120,6 +154,12 @@ public class CustomerTest {
 
         customer.updateEmail(UPDATED_EMAIL);
         assertEquals(UPDATED_EMAIL, customer.getEmail());
+    }
+
+    @Test
+    public void shouldThrowsInvalidCustomerEmailExceptionWhenTryingToUpdateCustomerEmailWithAnInvalidEmail() {
+        Customer customer = new Customer(DEFAULT_NAME, DEFAULT_EMAIL);
+        Arrays.stream(INVALID_EMAILS).forEach((email) -> assertThrows(InvalidCustomerEmailException.class, () -> customer.updateEmail(email)));
     }
 
     // endregion

@@ -1,9 +1,11 @@
 package br.com.luizalabs.favoriteproducts.customer;
 
+import br.com.luizalabs.favoriteproducts.customer.exception.InvalidCustomerEmailException;
 import br.com.luizalabs.favoriteproducts.customer.exception.InvalidCustomerNameException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.validator.routines.EmailValidator;
 import java.util.UUID;
 
 @Getter
@@ -19,6 +21,7 @@ public class Customer {
     public Customer(final String name, final String email) {
 
         this.validateName(name);
+        this.validateEmail(email);
 
         this.id = UUID.randomUUID();
         this.name = name;
@@ -29,6 +32,7 @@ public class Customer {
     public Customer(final UUID id, final String name, final String email, final CustomerStatus status) {
 
         this.validateName(name);
+        this.validateEmail(email);
 
         this.id = id;
         this.name = name;
@@ -48,7 +52,14 @@ public class Customer {
     }
 
     public void updateEmail(final String email) {
+        this.validateEmail(email);
         this.email = email;
+    }
+
+    private void validateEmail(final String email) {
+        if (!EmailValidator.getInstance().isValid(email)) {
+            throw new InvalidCustomerEmailException();
+        }
     }
 
     public void inactivate() {
