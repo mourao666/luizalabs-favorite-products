@@ -2,6 +2,7 @@ package br.com.luizalabs.favoriteproducts.customer;
 
 import br.com.luizalabs.favoriteproducts.customer.exception.InvalidCustomerEmailException;
 import br.com.luizalabs.favoriteproducts.customer.exception.InvalidCustomerNameException;
+import br.com.luizalabs.favoriteproducts.customer.exception.InvalidCustomerStatusException;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.UUID;
@@ -174,6 +175,12 @@ public class CustomerTest {
 
         customer.inactivate();
         assertEquals(CustomerStatus.INACTIVE, customer.getStatus());
+    }
+
+    @Test
+    public void shouldThrowsInvalidCustomerStatusExceptionWhenTryingToInactivateACustomerWithAnInvalidStatus() {
+        Customer customer = new Customer(DEFAULT_ID, DEFAULT_NAME, DEFAULT_EMAIL, CustomerStatus.INACTIVE);
+        assertThrows(InvalidCustomerStatusException.class, customer::inactivate);
     }
 
     // endregion

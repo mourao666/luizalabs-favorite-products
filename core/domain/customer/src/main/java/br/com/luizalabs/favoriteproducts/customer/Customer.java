@@ -2,6 +2,7 @@ package br.com.luizalabs.favoriteproducts.customer;
 
 import br.com.luizalabs.favoriteproducts.customer.exception.InvalidCustomerEmailException;
 import br.com.luizalabs.favoriteproducts.customer.exception.InvalidCustomerNameException;
+import br.com.luizalabs.favoriteproducts.customer.exception.InvalidCustomerStatusException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
@@ -63,6 +64,11 @@ public class Customer {
     }
 
     public void inactivate() {
+
+        if (CustomerStatus.INACTIVE.equals(this.status)) {
+            throw new InvalidCustomerStatusException();
+        }
+
         this.status = CustomerStatus.INACTIVE;
     }
 }
