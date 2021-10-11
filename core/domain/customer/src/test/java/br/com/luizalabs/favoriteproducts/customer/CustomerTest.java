@@ -1,9 +1,11 @@
 package br.com.luizalabs.favoriteproducts.customer;
 
+import br.com.luizalabs.favoriteproducts.customer.exception.InvalidCustomerNameException;
 import org.junit.jupiter.api.Test;
 import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CustomerTest {
 
@@ -12,6 +14,11 @@ public class CustomerTest {
     private static final String DEFAULT_EMAIL = "customer.name@mail.test";
     private static final String UPDATED_NAME = "New Customer Name";
     private static final String UPDATED_EMAIL = "new.customer.name@mail.test";
+
+    private static final String EMPTY_STRING = "";
+    private static final String BLANK_STRING = " ";
+
+    // region new customer
 
     @Test
     public void shouldCreateANewCustomerSuccessfully() {
@@ -25,6 +32,25 @@ public class CustomerTest {
     }
 
     @Test
+    public void shouldThrowsInvalidCustomerNameExceptionWhenANewCustomerIsCreatedWithNullName() {
+        assertThrows(InvalidCustomerNameException.class, () -> new Customer(null, DEFAULT_EMAIL));
+    }
+
+    @Test
+    public void shouldThrowsInvalidCustomerNameExceptionWhenANewCustomerIsCreatedWithEmptyName() {
+        assertThrows(InvalidCustomerNameException.class, () -> new Customer(EMPTY_STRING, DEFAULT_EMAIL));
+    }
+
+    @Test
+    public void shouldThrowsInvalidCustomerNameExceptionWhenANewCustomerIsCreatedWithBlankName() {
+        assertThrows(InvalidCustomerNameException.class, () -> new Customer(BLANK_STRING, DEFAULT_EMAIL));
+    }
+
+    // endregion
+
+    // region existing customer
+
+    @Test
     public void shouldCreateAnExistingCustomerSuccessfully() {
 
         Customer customer = new Customer(DEFAULT_ID, DEFAULT_NAME, DEFAULT_EMAIL, CustomerStatus.ACTIVE);
@@ -34,6 +60,25 @@ public class CustomerTest {
         assertEquals(DEFAULT_EMAIL, customer.getEmail());
         assertEquals(CustomerStatus.ACTIVE, customer.getStatus());
     }
+
+    @Test
+    public void shouldThrowsInvalidCustomerNameExceptionWhenAnExistingCustomerIsCreatedWithNullName() {
+        assertThrows(InvalidCustomerNameException.class, () -> new Customer(DEFAULT_ID, null, DEFAULT_EMAIL, CustomerStatus.ACTIVE));
+    }
+
+    @Test
+    public void shouldThrowsInvalidCustomerNameExceptionWhenAnExistingCustomerIsCreatedWithEmptyName() {
+        assertThrows(InvalidCustomerNameException.class, () -> new Customer(DEFAULT_ID, EMPTY_STRING, DEFAULT_EMAIL, CustomerStatus.ACTIVE));
+    }
+
+    @Test
+    public void shouldThrowsInvalidCustomerNameExceptionWhenAnExistingCustomerIsCreatedWithBlankName() {
+        assertThrows(InvalidCustomerNameException.class, () -> new Customer(DEFAULT_ID, BLANK_STRING, DEFAULT_EMAIL, CustomerStatus.ACTIVE));
+    }
+
+    // endregion
+
+    // region update name
 
     @Test
     public void shouldUpdateACustomerNameSuccessfully() {
@@ -46,6 +91,28 @@ public class CustomerTest {
     }
 
     @Test
+    public void shouldThrowsInvalidCustomerNameExceptionWhenTryingToUpdateCustomerNameWithAnNullName() {
+        Customer customer = new Customer(DEFAULT_NAME, DEFAULT_EMAIL);
+        assertThrows(InvalidCustomerNameException.class, () -> customer.updateName(null));
+    }
+
+    @Test
+    public void shouldThrowsInvalidCustomerNameExceptionWhenTryingToUpdateCustomerNameWithAnEmptyName() {
+        Customer customer = new Customer(DEFAULT_NAME, DEFAULT_EMAIL);
+        assertThrows(InvalidCustomerNameException.class, () -> customer.updateName(EMPTY_STRING));
+    }
+
+    @Test
+    public void shouldThrowsInvalidCustomerNameExceptionWhenTryingToUpdateCustomerNameWithAnBlankName() {
+        Customer customer = new Customer(DEFAULT_NAME, DEFAULT_EMAIL);
+        assertThrows(InvalidCustomerNameException.class, () -> customer.updateName(BLANK_STRING));
+    }
+
+    // endregion
+
+    // region update email
+
+    @Test
     public void shouldUpdateACustomerEmailSuccessfully() {
 
         Customer customer = new Customer(DEFAULT_NAME, DEFAULT_EMAIL);
@@ -54,6 +121,10 @@ public class CustomerTest {
         customer.updateEmail(UPDATED_EMAIL);
         assertEquals(UPDATED_EMAIL, customer.getEmail());
     }
+
+    // endregion
+
+    // region inactivate customer
 
     @Test
     public void shouldInactivateACustomerSuccessfully() {
@@ -64,4 +135,6 @@ public class CustomerTest {
         customer.inactivate();
         assertEquals(CustomerStatus.INACTIVE, customer.getStatus());
     }
+
+    // endregion
 }

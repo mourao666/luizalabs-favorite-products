@@ -1,7 +1,9 @@
 package br.com.luizalabs.favoriteproducts.customer;
 
+import br.com.luizalabs.favoriteproducts.customer.exception.InvalidCustomerNameException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import org.apache.commons.lang3.StringUtils;
 import java.util.UUID;
 
 @Getter
@@ -14,25 +16,38 @@ public class Customer {
     private String email;
     private CustomerStatus status;
 
-    public Customer(String name, String email) {
+    public Customer(final String name, final String email) {
+
+        this.validateName(name);
+
         this.id = UUID.randomUUID();
         this.name = name;
         this.email = email;
         this.status = CustomerStatus.ACTIVE;
     }
 
-    public Customer(UUID id, String name, String email, CustomerStatus status) {
+    public Customer(final UUID id, final String name, final String email, final CustomerStatus status) {
+
+        this.validateName(name);
+
         this.id = id;
         this.name = name;
         this.email = email;
         this.status = status;
     }
 
-    public void updateName(String name) {
+    public void updateName(final String name) {
+        this.validateName(name);
         this.name = name;
     }
 
-    public void updateEmail(String email) {
+    private void validateName(final String name) {
+        if (StringUtils.isBlank(name)) {
+            throw new InvalidCustomerNameException();
+        }
+    }
+
+    public void updateEmail(final String email) {
         this.email = email;
     }
 
