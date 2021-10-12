@@ -3,18 +3,18 @@ package br.com.luizalabs.favoriteproducts.customer.domain;
 import br.com.luizalabs.favoriteproducts.customer.domain.exception.InvalidCustomerEmailException;
 import br.com.luizalabs.favoriteproducts.customer.domain.exception.InvalidCustomerNameException;
 import br.com.luizalabs.favoriteproducts.customer.domain.exception.InvalidCustomerStatusException;
+import br.com.luizalabs.favoriteproducts.customer.domain.vo.CustomerId;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
-import java.util.UUID;
 
 @Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Customer {
 
     @EqualsAndHashCode.Include
-    private final UUID id;
+    private final CustomerId id;
     private String name;
     private String email;
     private CustomerStatus status;
@@ -24,13 +24,13 @@ public class Customer {
         this.validateName(name);
         this.validateEmail(email);
 
-        this.id = UUID.randomUUID();
+        this.id = CustomerId.newId();
         this.name = name;
         this.email = email;
         this.status = CustomerStatus.ACTIVE;
     }
 
-    public Customer(final UUID id, final String name, final String email, final CustomerStatus status) {
+    public Customer(final CustomerId id, final String name, final String email, final CustomerStatus status) {
 
         this.validateName(name);
         this.validateEmail(email);

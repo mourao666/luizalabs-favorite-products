@@ -3,16 +3,16 @@ package br.com.luizalabs.favoriteproducts.customer.domain;
 import br.com.luizalabs.favoriteproducts.customer.domain.exception.InvalidCustomerEmailException;
 import br.com.luizalabs.favoriteproducts.customer.domain.exception.InvalidCustomerNameException;
 import br.com.luizalabs.favoriteproducts.customer.domain.exception.InvalidCustomerStatusException;
+import br.com.luizalabs.favoriteproducts.customer.domain.vo.CustomerId;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
-import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CustomerTest {
 
-    private static final UUID DEFAULT_ID = UUID.fromString("123e4567-e89b-42d3-a456-556642440000");
+    private static final CustomerId DEFAULT_ID = CustomerId.from("123e4567-e89b-42d3-a456-556642440000");
     private static final String DEFAULT_NAME = "Customer Name";
     private static final String DEFAULT_EMAIL = "customer.name@test.com";
     private static final String UPDATED_NAME = "New Customer Name";
