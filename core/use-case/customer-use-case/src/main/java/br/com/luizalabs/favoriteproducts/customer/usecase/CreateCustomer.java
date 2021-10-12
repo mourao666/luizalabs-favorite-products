@@ -17,10 +17,10 @@ public class CreateCustomer {
     public Customer create(final String name, final String email) {
 
         if (customers.emailAlreadyExists(email)) {
-            throw new CustomerEmailAlreadyExistsException();
+            throw new CustomerEmailAlreadyExistsException(email);
         }
 
         final Customer customer = new Customer(name, email);
-        return this.customers.create(customer);
+        return this.customers.createOrUpdate(customer);
     }
 }

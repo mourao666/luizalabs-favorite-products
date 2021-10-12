@@ -33,7 +33,7 @@ public class CreateCustomerTest {
 
         when(customers.emailAlreadyExists(anyString()))
             .thenReturn(Boolean.FALSE);
-        when(customers.create(any(Customer.class)))
+        when(customers.createOrUpdate(any(Customer.class)))
             .thenAnswer(invocationOnMock -> invocationOnMock.getArgument(0));
 
         final Customer customer = createCustomer.create(CUSTOMER_NAME, CUSTOMER_EMAIL);
