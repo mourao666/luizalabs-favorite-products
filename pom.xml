@@ -13,7 +13,7 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <modules>
-        <module>core/domain/customer</module>
+        <module>core/domain/customer-domain</module>
     </modules>
 
     <properties>

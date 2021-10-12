@@ -1,4 +1,4 @@
-package br.com.luizalabs.favoriteproducts.customer.exception;
+package br.com.luizalabs.favoriteproducts.customer.domain.exception;
 
 public class InvalidCustomerStatusException extends RuntimeException {
 

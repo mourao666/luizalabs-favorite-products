@@ -1,8 +1,8 @@
-package br.com.luizalabs.favoriteproducts.customer;
+package br.com.luizalabs.favoriteproducts.customer.domain;
 
-import br.com.luizalabs.favoriteproducts.customer.exception.InvalidCustomerEmailException;
-import br.com.luizalabs.favoriteproducts.customer.exception.InvalidCustomerNameException;
-import br.com.luizalabs.favoriteproducts.customer.exception.InvalidCustomerStatusException;
+import br.com.luizalabs.favoriteproducts.customer.domain.exception.InvalidCustomerEmailException;
+import br.com.luizalabs.favoriteproducts.customer.domain.exception.InvalidCustomerNameException;
+import br.com.luizalabs.favoriteproducts.customer.domain.exception.InvalidCustomerStatusException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
