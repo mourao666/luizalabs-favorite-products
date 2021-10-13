@@ -3,8 +3,12 @@ package br.com.luizalabs.favoriteproducts.customer.usecase;
 import br.com.luizalabs.favoriteproducts.customer.domain.Customer;
 import br.com.luizalabs.favoriteproducts.customer.usecase.exception.CustomerEmailAlreadyExistsException;
 import br.com.luizalabs.favoriteproducts.customer.usecase.port.Customers;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
+@Named
+@ApplicationScoped
 public class CreateCustomer {
 
     private final Customers customers;

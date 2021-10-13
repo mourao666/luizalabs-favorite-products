@@ -4,9 +4,13 @@ import br.com.luizalabs.favoriteproducts.customer.domain.Customer;
 import br.com.luizalabs.favoriteproducts.customer.domain.vo.CustomerId;
 import br.com.luizalabs.favoriteproducts.customer.usecase.exception.CustomerNotFoundException;
 import br.com.luizalabs.favoriteproducts.customer.usecase.port.Customers;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.Objects;
 
+@Named
+@ApplicationScoped
 public class FindCustomer {
 
     private final Customers customers;
