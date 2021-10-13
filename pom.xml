@@ -15,6 +15,7 @@
     <modules>
         <module>core/domain/customer-domain</module>
         <module>core/use-case/customer-use-case</module>
+        <module>app</module>
     </modules>
 
     <properties>
