@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: favorite-products
+
+server:
+  servlet:
+    contextPath: /v1
