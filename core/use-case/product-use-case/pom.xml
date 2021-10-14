@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <name>Customer Use Case</name>
+    <name>Product Use Case</name>
 
     <parent>
         <relativePath>../../../pom.xml</relativePath>
@@ -13,7 +13,7 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>customer-use-case</artifactId>
+    <artifactId>product-use-case</artifactId>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -43,6 +43,11 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>customer-domain</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>product-domain</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
     </dependencies>

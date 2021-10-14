@@ -13,9 +13,10 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <modules>
-        <module>core/domain/product-domain</module>
         <module>core/domain/customer-domain</module>
+        <module>core/domain/product-domain</module>
         <module>core/use-case/customer-use-case</module>
+        <module>core/use-case/product-use-case</module>
         <module>app</module>
     </modules>
 
@@ -95,17 +96,22 @@
             <!-- Project Dependencies -->
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>product-domain</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
                 <artifactId>customer-domain</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>product-domain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>customer-use-case</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>product-use-case</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
