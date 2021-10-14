@@ -8,5 +8,7 @@ public interface Products {
 
     void add(Product product, CustomerId customerId);
 
+    void remove(ProductId productId, CustomerId customerId);
+
     boolean alreadyBeenAdded(ProductId productId, CustomerId customerId);
 }
