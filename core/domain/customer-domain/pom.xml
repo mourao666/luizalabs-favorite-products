@@ -45,5 +45,10 @@
             <artifactId>commons-validator</artifactId>
         </dependency>
 
+        <!-- Project Dependencies -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>domain-model</artifactId>
+        </dependency>
     </dependencies>
 </project>

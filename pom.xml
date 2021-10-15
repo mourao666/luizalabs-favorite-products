@@ -13,6 +13,7 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <modules>
+        <module>core/domain/domain-model</module>
         <module>core/domain/customer-domain</module>
         <module>core/domain/product-domain</module>
         <module>core/use-case/customer-use-case</module>
@@ -94,6 +95,11 @@
             </dependency>
 
             <!-- Project Dependencies -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>domain-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>customer-domain</artifactId>

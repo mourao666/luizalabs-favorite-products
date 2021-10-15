@@ -1,6 +1,8 @@
 package br.com.luizalabs.favoriteproducts.customer.domain.exception;
 
-public class InvalidCustomerNameException extends RuntimeException {
+import br.com.luizalabs.favoriteproducts.domain.exception.BusinessException;
+
+public class InvalidCustomerNameException extends BusinessException {
 
     public InvalidCustomerNameException(final String name) {
         super("The customer name " + name + " cannot be empty");
