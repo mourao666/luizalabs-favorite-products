@@ -9,7 +9,7 @@ public class ProductReviewScore {
     @EqualsAndHashCode.Include
     private final Double reviewScore;
 
-    private ProductReviewScore(Double reviewScore) {
+    private ProductReviewScore(final Double reviewScore) {
         this.reviewScore = reviewScore;
     }
 

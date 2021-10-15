@@ -20,12 +20,12 @@ public class AddProduct {
     private final ProductsService productsService;
 
     @Inject
-    public AddProduct(Products products, ProductsService productsService) {
+    public AddProduct(final Products products, final ProductsService productsService) {
         this.products = products;
         this.productsService = productsService;
     }
 
-    public Product add(ProductId productId, CustomerId customerId) {
+    public Product add(final ProductId productId, final CustomerId customerId) {
 
         if (products.alreadyBeenAdded(productId, customerId)) {
             throw new ProductAlreadyAddedException(productId, customerId);

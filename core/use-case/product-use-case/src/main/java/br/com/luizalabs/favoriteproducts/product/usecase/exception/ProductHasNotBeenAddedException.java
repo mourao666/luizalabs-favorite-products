@@ -5,7 +5,7 @@ import br.com.luizalabs.favoriteproducts.product.domain.vo.ProductId;
 
 public class ProductHasNotBeenAddedException extends RuntimeException {
 
-    public ProductHasNotBeenAddedException(ProductId productId, CustomerId customerId) {
+    public ProductHasNotBeenAddedException(final ProductId productId, final CustomerId customerId) {
         super("Product with id " + productId + " has not been added in customer " + customerId + " list");
     }
 }

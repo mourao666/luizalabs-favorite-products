@@ -15,11 +15,11 @@ public class RemoveProduct {
     private final Products products;
 
     @Inject
-    public RemoveProduct(Products products) {
+    public RemoveProduct(final Products products) {
         this.products = products;
     }
 
-    public void remove(ProductId productId, CustomerId customerId) {
+    public void remove(final ProductId productId, final CustomerId customerId) {
 
         if (products.alreadyBeenAdded(productId, customerId)) {
             products.remove(productId, customerId);

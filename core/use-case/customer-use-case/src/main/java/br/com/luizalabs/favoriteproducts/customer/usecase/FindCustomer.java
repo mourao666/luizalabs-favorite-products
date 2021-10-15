@@ -16,7 +16,7 @@ public class FindCustomer {
     private final Customers customers;
 
     @Inject
-    public FindCustomer(Customers customers) {
+    public FindCustomer(final Customers customers) {
         this.customers = customers;
     }
 

@@ -48,7 +48,7 @@ public class Customer {
 
     private void validateName(final String name) {
         if (StringUtils.isBlank(name)) {
-            throw new InvalidCustomerNameException();
+            throw new InvalidCustomerNameException(name);
         }
     }
 
@@ -59,14 +59,14 @@ public class Customer {
 
     private void validateEmail(final String email) {
         if (!EmailValidator.getInstance().isValid(email)) {
-            throw new InvalidCustomerEmailException();
+            throw new InvalidCustomerEmailException(email);
         }
     }
 
     public void inactivate() {
 
         if (CustomerStatus.INACTIVE.equals(this.status)) {
-            throw new InvalidCustomerStatusException();
+            throw new InvalidCustomerStatusException(this.id, this.status);
         }
 
         this.status = CustomerStatus.INACTIVE;

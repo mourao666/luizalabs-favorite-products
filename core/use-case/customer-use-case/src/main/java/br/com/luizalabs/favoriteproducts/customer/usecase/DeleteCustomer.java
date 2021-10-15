@@ -15,11 +15,11 @@ public class DeleteCustomer {
     private final Customers customers;
 
     @Inject
-    public DeleteCustomer(Customers customers) {
+    public DeleteCustomer(final Customers customers) {
         this.customers = customers;
     }
 
-    public void delete(CustomerId id) {
+    public void delete(final CustomerId id) {
 
         Objects.requireNonNull(id, "Cannot delete a customer without id");
 

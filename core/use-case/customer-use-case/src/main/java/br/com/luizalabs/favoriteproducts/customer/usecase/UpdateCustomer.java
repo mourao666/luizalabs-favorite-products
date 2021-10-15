@@ -18,7 +18,7 @@ public class UpdateCustomer {
     private final Customers customers;
 
     @Inject
-    public UpdateCustomer(Customers customers) {
+    public UpdateCustomer(final Customers customers) {
         this.customers = customers;
     }
 

@@ -18,7 +18,8 @@ public class Product {
     private final String image;
     private final ProductReviewScore reviewScore;
 
-    public Product(ProductId id, String title, String brand, ProductPrice price, String image, ProductReviewScore reviewScore) {
+    public Product(final ProductId id, final String title, final String brand, final ProductPrice price,
+                   final String image, final ProductReviewScore reviewScore) {
         this.id = id;
         this.title = title;
         this.brand = brand;

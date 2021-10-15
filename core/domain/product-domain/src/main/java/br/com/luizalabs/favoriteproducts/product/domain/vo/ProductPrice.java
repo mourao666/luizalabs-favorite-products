@@ -11,7 +11,7 @@ public class ProductPrice {
     @EqualsAndHashCode.Include
     private final BigDecimal price;
 
-    private ProductPrice(BigDecimal price) {
+    private ProductPrice(final BigDecimal price) {
         this.price = price.setScale(2, RoundingMode.HALF_UP);
     }
 
