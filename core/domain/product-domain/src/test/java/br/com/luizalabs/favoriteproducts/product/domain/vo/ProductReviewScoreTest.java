@@ -17,7 +17,8 @@ public class ProductReviewScoreTest {
     public void shouldBeCreatedANewReviewScoreSuccessfully() {
 
         final ProductReviewScore nullReviewScore = ProductReviewScore.from(null);
-        assertNull(nullReviewScore);
+        assertNotNull(nullReviewScore);
+        assertNull(nullReviewScore.value());
 
         final ProductReviewScore reviewScore = ProductReviewScore.from(1.0d);
         assertNotNull(reviewScore);

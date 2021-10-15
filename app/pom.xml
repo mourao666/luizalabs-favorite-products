@@ -76,6 +76,10 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>customer-use-case</artifactId>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>product-use-case</artifactId>
+        </dependency>
 
     </dependencies>
 </project>

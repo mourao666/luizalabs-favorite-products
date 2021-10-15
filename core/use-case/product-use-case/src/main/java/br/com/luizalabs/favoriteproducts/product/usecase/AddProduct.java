@@ -1,6 +1,8 @@
 package br.com.luizalabs.favoriteproducts.product.usecase;
 
+import br.com.luizalabs.favoriteproducts.customer.domain.Customer;
 import br.com.luizalabs.favoriteproducts.customer.domain.vo.CustomerId;
+import br.com.luizalabs.favoriteproducts.customer.usecase.FindCustomer;
 import br.com.luizalabs.favoriteproducts.product.domain.Product;
 import br.com.luizalabs.favoriteproducts.product.domain.vo.ProductId;
 import br.com.luizalabs.favoriteproducts.product.usecase.exception.ProductAlreadyAddedException;
@@ -19,15 +21,20 @@ public class AddProduct {
     private final Products products;
     private final ProductsService productsService;
 
+    private final FindCustomer findCustomer;
+
     @Inject
-    public AddProduct(final Products products, final ProductsService productsService) {
+    public AddProduct(final Products products, final ProductsService productsService, final FindCustomer findCustomer) {
         this.products = products;
         this.productsService = productsService;
+        this.findCustomer = findCustomer;
     }
 
     public Product add(final ProductId productId, final CustomerId customerId) {
 
-        if (products.alreadyBeenAdded(productId, customerId)) {
+        Customer customer = findCustomer.findOne(customerId);
+
+        if (products.alreadyBeenAdded(productId, customer.getId())) {
             throw new ProductAlreadyAddedException(productId, customerId);
         }
 

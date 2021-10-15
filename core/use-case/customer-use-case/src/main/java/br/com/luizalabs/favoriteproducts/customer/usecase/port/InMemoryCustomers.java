@@ -39,7 +39,7 @@ public class InMemoryCustomers implements Customers {
 
     @Override
     public Optional<Customer> find(CustomerId id) {
-        return Optional.of(CUSTOMERS.get(id));
+        return Optional.ofNullable(CUSTOMERS.get(id));
     }
 
     @Override

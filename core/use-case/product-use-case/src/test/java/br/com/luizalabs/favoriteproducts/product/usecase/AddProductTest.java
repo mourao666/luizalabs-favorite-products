@@ -1,6 +1,9 @@
 package br.com.luizalabs.favoriteproducts.product.usecase;
 
+import br.com.luizalabs.favoriteproducts.customer.domain.Customer;
+import br.com.luizalabs.favoriteproducts.customer.domain.CustomerStatus;
 import br.com.luizalabs.favoriteproducts.customer.domain.vo.CustomerId;
+import br.com.luizalabs.favoriteproducts.customer.usecase.FindCustomer;
 import br.com.luizalabs.favoriteproducts.product.domain.Product;
 import br.com.luizalabs.favoriteproducts.product.domain.vo.ProductId;
 import br.com.luizalabs.favoriteproducts.product.domain.vo.ProductPrice;
@@ -28,11 +31,16 @@ public class AddProductTest {
     private static final ProductId PRODUCT_ID = ProductId.from("123e4567-e89b-42d3-a456-556642440000");
     private static final CustomerId CUSTOMER_ID = CustomerId.from("123e4567-a456-42d3-e89b-556642440000");
 
+    private static final Customer CUSTOMER = new Customer(CUSTOMER_ID, "Dummy", "dummy@testmail.com", CustomerStatus.ACTIVE);
+
     @Mock
     private Products products;
 
     @Mock
     private ProductsService productsService;
+
+    @Mock
+    private FindCustomer findCustomer;
 
     @InjectMocks
     private AddProduct addProduct;
@@ -43,6 +51,7 @@ public class AddProductTest {
         final Product product = new Product(
             PRODUCT_ID, "Dummy product", "dummy", ProductPrice.from(BigDecimal.TEN), "xpto.png", ProductReviewScore.from(4.5d));
 
+        when(findCustomer.findOne(any(CustomerId.class))).thenReturn(CUSTOMER);
         when(products.alreadyBeenAdded(any(ProductId.class), any(CustomerId.class))).thenReturn(Boolean.FALSE);
         when(productsService.find(any(ProductId.class))).thenReturn(Optional.of(product));
 
@@ -53,6 +62,7 @@ public class AddProductTest {
 
     @Test
     public void shouldThrowsProductNotFoundExceptionWhenAProductIsAddedWithInvalidId() {
+        when(findCustomer.findOne(any(CustomerId.class))).thenReturn(CUSTOMER);
         when(products.alreadyBeenAdded(any(ProductId.class), any(CustomerId.class))).thenReturn(Boolean.FALSE);
         when(productsService.find(any(ProductId.class))).thenReturn(Optional.empty());
         assertThrows(ProductNotFoundException.class, () -> addProduct.add(PRODUCT_ID, CUSTOMER_ID));
@@ -60,6 +70,7 @@ public class AddProductTest {
 
     @Test
     public void shouldThrowsProductAlreadyAddedExceptionWhenAExistingProductIsAdded() {
+        when(findCustomer.findOne(any(CustomerId.class))).thenReturn(CUSTOMER);
         when(products.alreadyBeenAdded(any(ProductId.class), any(CustomerId.class))).thenReturn(Boolean.TRUE);
         assertThrows(ProductAlreadyAddedException.class, () -> addProduct.add(PRODUCT_ID, CUSTOMER_ID));
     }

@@ -47,7 +47,10 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>product-domain</artifactId>
-            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>customer-use-case</artifactId>
         </dependency>
 
     </dependencies>
