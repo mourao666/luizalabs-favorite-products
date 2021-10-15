@@ -15,11 +15,7 @@ public class ProductReviewScore {
 
     public static ProductReviewScore from(final Double reviewScore) {
 
-        if (Objects.isNull(reviewScore)) {
-            return null;
-        }
-
-        if (reviewScore < 0.0d) {
+        if (!Objects.isNull(reviewScore) && reviewScore < 0.0d) {
             throw new IllegalArgumentException("The review score cannot be negative");
         }
 
@@ -32,6 +28,6 @@ public class ProductReviewScore {
 
     @Override
     public String toString() {
-        return String.format("%.1f", this.reviewScore);
+        return Objects.isNull(reviewScore) ? "" : String.format("%.1f", this.reviewScore);
     }
 }
