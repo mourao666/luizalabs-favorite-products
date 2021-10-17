@@ -8,11 +8,9 @@ public interface Customers {
 
     Customer createOrUpdate(Customer customer);
 
-    void delete(CustomerId id);
-
     Optional<Customer> find(CustomerId id);
 
-    boolean exists(CustomerId id);
+    Optional<Customer> findByEmail(String email);
 
     boolean emailAlreadyExists(String email);
 }

@@ -3,6 +3,18 @@ spring:
     name: favorite-products
   jackson:
     default-property-inclusion: non_null
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: mysecretpassword
+    url: jdbc:postgresql://localhost:5432/postgres?createDatabaseIfNotExist=true
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    show-sql: false
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
 
 server:
   servlet:

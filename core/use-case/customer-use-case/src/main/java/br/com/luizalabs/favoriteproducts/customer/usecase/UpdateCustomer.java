@@ -24,13 +24,9 @@ public class UpdateCustomer {
 
     public Customer update(final CustomerId id, final String name, final String email) {
 
-        if (customers.emailAlreadyExists(email)) {
-            throw new CustomerEmailAlreadyExistsException(email);
-        }
-
         final Customer customer = this.findCustomer(id);
-        customer.updateName(name);
-        customer.updateEmail(email);
+        this.updateName(customer, name);
+        this.updateEmail(customer, email);
 
         return customers.createOrUpdate(customer);
     }
@@ -50,20 +46,34 @@ public class UpdateCustomer {
     public Customer updateName(final CustomerId id, final String name) {
 
         final Customer customer = this.findCustomer(id);
-        customer.updateName(name);
+        this.updateName(customer, name);
 
         return customers.createOrUpdate(customer);
     }
 
+    private void updateName(final Customer customer, final String name) {
+        if (!customer.getName().equals(name)) {
+            customer.updateName(name);
+        }
+    }
+
     public Customer updateEmail(final CustomerId id, final String email) {
 
-        if (customers.emailAlreadyExists(email)) {
-            throw new CustomerEmailAlreadyExistsException(email);
-        }
-
         final Customer customer = this.findCustomer(id);
-        customer.updateEmail(email);
+        this.updateEmail(customer, email);
 
         return customers.createOrUpdate(customer);
+    }
+
+    private void updateEmail(final Customer customer, final String email) {
+
+        if (!customer.getEmail().equals(email)) {
+
+            if (customers.emailAlreadyExists(email)) {
+                throw new CustomerEmailAlreadyExistsException(email);
+            }
+
+            customer.updateEmail(email);
+        }
     }
 }

@@ -10,8 +10,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-@Named
-@ApplicationScoped
+//@Named
+//@ApplicationScoped
 public class InMemoryProducts implements Products {
 
     private static final Map<CustomerId, Map<ProductId, Product>> CUSTOMER_PRODUCTS = new HashMap<>();

@@ -165,6 +165,26 @@ public class CustomerTest {
 
     // endregion
 
+    // region activate customer
+
+    @Test
+    public void shouldActivateACustomerSuccessfully() {
+
+        Customer customer = new Customer(DEFAULT_ID, DEFAULT_NAME, DEFAULT_EMAIL, CustomerStatus.INACTIVE);
+        assertEquals(CustomerStatus.INACTIVE, customer.getStatus());
+
+        customer.activate();
+        assertEquals(CustomerStatus.ACTIVE, customer.getStatus());
+    }
+
+    @Test
+    public void shouldThrowsInvalidCustomerStatusExceptionWhenTryingToActivateACustomerWithAnInvalidStatus() {
+        Customer customer = new Customer(DEFAULT_ID, DEFAULT_NAME, DEFAULT_EMAIL, CustomerStatus.ACTIVE);
+        assertThrows(InvalidCustomerStatusException.class, customer::activate);
+    }
+
+    // endregion
+
     // region inactivate customer
 
     @Test

@@ -1,6 +1,7 @@
 package br.com.luizalabs.favoriteproducts.customer.usecase;
 
 import br.com.luizalabs.favoriteproducts.customer.domain.Customer;
+import br.com.luizalabs.favoriteproducts.customer.domain.CustomerStatus;
 import br.com.luizalabs.favoriteproducts.customer.domain.vo.CustomerId;
 import br.com.luizalabs.favoriteproducts.customer.usecase.exception.CustomerEmailAlreadyExistsException;
 import br.com.luizalabs.favoriteproducts.customer.usecase.exception.CustomerNotFoundException;
@@ -21,11 +22,11 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class UpdateCustomerTest {
 
-    private static final CustomerId DEFAULT_ID = CustomerId.from("123e4567-e89b-42d3-a456-556642440000");
     private static final String DEFAULT_NAME = "Customer Name";
     private static final String DEFAULT_EMAIL = "customer.name@test.com";
     private static final String UPDATED_NAME = "New Customer Name";
     private static final String UPDATED_EMAIL = "new.customer.name@test.com";
+    private static final CustomerId DEFAULT_ID = CustomerId.from("123e4567-e89b-42d3-a456-556642440000");
 
     @Mock
     private Customers customers;
@@ -37,30 +38,30 @@ public class UpdateCustomerTest {
 
     @Test
     public void shouldBeThrowsCustomerEmailAlreadyExistsExceptionWhenACustomerIsUpdatedWithExistingEmail() {
+        final Customer customer = new Customer(DEFAULT_ID, DEFAULT_NAME, DEFAULT_EMAIL, CustomerStatus.ACTIVE);
+        when(customers.find(any(CustomerId.class))).thenReturn(Optional.of(customer));
         when(customers.emailAlreadyExists(anyString())).thenReturn(Boolean.TRUE);
-        assertThrows(CustomerEmailAlreadyExistsException.class, () -> updateCustomer.update(null, null, DEFAULT_EMAIL));
+        assertThrows(CustomerEmailAlreadyExistsException.class, () -> updateCustomer.update(DEFAULT_ID, DEFAULT_NAME, UPDATED_EMAIL));
     }
 
     @Test
     public void shouldBeThrowsNullPointerExceptionWhenACustomerIsUpdatedWithNullId() {
-        when(customers.emailAlreadyExists(anyString())).thenReturn(Boolean.FALSE);
-        assertThrows(NullPointerException.class, () -> updateCustomer.update(null, DEFAULT_NAME, DEFAULT_EMAIL));
+        assertThrows(NullPointerException.class, () -> updateCustomer.update(null, DEFAULT_NAME, UPDATED_EMAIL));
     }
 
     @Test
     public void shouldBeThrowsCustomerNotFoundExceptionWhenACustomerIsUpdatedWithInvalidId() {
-        when(customers.emailAlreadyExists(anyString())).thenReturn(Boolean.FALSE);
         when(customers.find(any(CustomerId.class))).thenReturn(Optional.empty());
-        assertThrows(CustomerNotFoundException.class, () -> updateCustomer.update(DEFAULT_ID, DEFAULT_NAME, DEFAULT_EMAIL));
+        assertThrows(CustomerNotFoundException.class, () -> updateCustomer.update(DEFAULT_ID, DEFAULT_NAME, UPDATED_EMAIL));
     }
 
     @Test
     public void shouldBeUpdateCustomerWithSuccess() {
 
-        final Customer customer = new Customer(DEFAULT_NAME, DEFAULT_EMAIL);
+        final Customer customer = new Customer(DEFAULT_ID, DEFAULT_NAME, DEFAULT_EMAIL, CustomerStatus.ACTIVE);
 
-        when(customers.emailAlreadyExists(anyString())).thenReturn(Boolean.FALSE);
         when(customers.find(any(CustomerId.class))).thenReturn(Optional.of(customer));
+        when(customers.emailAlreadyExists(anyString())).thenReturn(Boolean.FALSE);
         when(customers.createOrUpdate(any(Customer.class)))
             .then(invocationOnMock -> invocationOnMock.getArgument(0));
 
@@ -95,8 +96,10 @@ public class UpdateCustomerTest {
 
     @Test
     public void shouldBeThrowsCustomerEmailAlreadyExistsExceptionWhenACustomerEmailIsUpdatedWithExistingEmail() {
+        final Customer customer = new Customer(DEFAULT_ID, DEFAULT_NAME, DEFAULT_EMAIL, CustomerStatus.ACTIVE);
+        when(customers.find(any(CustomerId.class))).thenReturn(Optional.of(customer));
         when(customers.emailAlreadyExists(anyString())).thenReturn(Boolean.TRUE);
-        assertThrows(CustomerEmailAlreadyExistsException.class, () -> updateCustomer.updateEmail(null, DEFAULT_EMAIL));
+        assertThrows(CustomerEmailAlreadyExistsException.class, () -> updateCustomer.updateEmail(DEFAULT_ID, UPDATED_EMAIL));
     }
 
     @Test

@@ -3,6 +3,7 @@ package br.com.luizalabs.favoriteproducts.customer;
 import br.com.luizalabs.favoriteproducts.customer.domain.Customer;
 import br.com.luizalabs.favoriteproducts.customer.domain.vo.CustomerId;
 import br.com.luizalabs.favoriteproducts.customer.entity.CustomerEntity;
+import br.com.luizalabs.favoriteproducts.customer.entity.CustomerEntityStatus;
 import br.com.luizalabs.favoriteproducts.customer.mapper.CustomerMapper;
 import br.com.luizalabs.favoriteproducts.customer.repository.CustomerEntityRepository;
 import br.com.luizalabs.favoriteproducts.customer.usecase.port.Customers;
@@ -30,18 +31,13 @@ public class CustomerGateway implements Customers {
     }
 
     @Override
-    public void delete(CustomerId id) {
-        repository.deleteById(id.value());
-    }
-
-    @Override
     public Optional<Customer> find(CustomerId id) {
-        return repository.findById(id.value()).map(CustomerMapper::toDomain);
+        return repository.findByIdAndStatus(id.value(), CustomerEntityStatus.ACTIVE).map(CustomerMapper::toDomain);
     }
 
     @Override
-    public boolean exists(CustomerId id) {
-        return repository.existsById(id.value());
+    public Optional<Customer> findByEmail(String email) {
+        return repository.findByEmail(email).map(CustomerMapper::toDomain);
     }
 
     @Override

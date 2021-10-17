@@ -1,6 +1,7 @@
 package br.com.luizalabs.favoriteproducts.customer.usecase.port;
 
 import br.com.luizalabs.favoriteproducts.customer.domain.Customer;
+import br.com.luizalabs.favoriteproducts.customer.domain.CustomerStatus;
 import br.com.luizalabs.favoriteproducts.customer.domain.vo.CustomerId;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
@@ -10,8 +11,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-@Named
-@ApplicationScoped
+//@Named
+//@ApplicationScoped
 public class InMemoryCustomers implements Customers {
 
     private static final Map<CustomerId, Customer> CUSTOMERS = new HashMap<>();
@@ -25,16 +26,12 @@ public class InMemoryCustomers implements Customers {
             CUSTOMERS_EMAILS.remove(c.getEmail());
         }
 
-        CUSTOMERS.put(customer.getId(), customer);
-        CUSTOMERS_EMAILS.add(customer.getEmail());
+        if (CustomerStatus.ACTIVE.equals(customer.getStatus())) {
+            CUSTOMERS.put(customer.getId(), customer);
+            CUSTOMERS_EMAILS.add(customer.getEmail());
+        }
 
         return customer;
-    }
-
-    @Override
-    public void delete(CustomerId id) {
-        Customer customer = CUSTOMERS.remove(id);
-        CUSTOMERS_EMAILS.remove(customer.getEmail());
     }
 
     @Override
@@ -43,8 +40,8 @@ public class InMemoryCustomers implements Customers {
     }
 
     @Override
-    public boolean exists(CustomerId id) {
-        return CUSTOMERS.containsKey(id);
+    public Optional<Customer> findByEmail(String email) {
+        return CUSTOMERS.values().stream().filter(c -> c.getEmail().equals(email)).findFirst();
     }
 
     @Override

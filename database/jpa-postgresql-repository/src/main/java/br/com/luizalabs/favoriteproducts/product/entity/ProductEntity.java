@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @Entity
 @Table(
-    name = "customer",
+    name = "product",
     uniqueConstraints = {
         @UniqueConstraint(columnNames = { "id", "customer_id" })
     }

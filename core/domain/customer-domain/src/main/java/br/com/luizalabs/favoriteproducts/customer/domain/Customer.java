@@ -63,6 +63,15 @@ public class Customer {
         }
     }
 
+    public void activate() {
+
+        if (CustomerStatus.ACTIVE.equals(this.status)) {
+            throw new InvalidCustomerStatusException(this.id, this.status);
+        }
+
+        this.status = CustomerStatus.ACTIVE;
+    }
+
     public void inactivate() {
 
         if (CustomerStatus.INACTIVE.equals(this.status)) {

@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -58,47 +59,28 @@ public class CustomerGatewayTest {
     }
 
     @Test
-    public void whenDeleteThenCallRepository() {
-        customerGateway.delete(CUSTOMER_ID);
-        verify(repository).deleteById(ID);
-        verifyNoMoreInteractions(repository);
-    }
-
-
-    @Test
     public void whenFindThenCallRepository() {
 
-        when(repository.findById(ID)).thenReturn(Optional.of(CUSTOMER_ENTITY));
+        when(repository.findByIdAndStatus(any(UUID.class), any(CustomerEntityStatus.class))).thenReturn(Optional.of(CUSTOMER_ENTITY));
         Optional<Customer> optionalCustomer = customerGateway.find(CUSTOMER_ID);
 
         assertTrue(optionalCustomer.isPresent());
         assertEquals(ID, optionalCustomer.get().getId().value());
 
-        verify(repository).findById(ID);
+        verify(repository).findByIdAndStatus(ID, CustomerEntityStatus.ACTIVE);
         verifyNoMoreInteractions(repository);
     }
 
     @Test
-    public void whenExistsThenCallRepository() {
+    public void whenFindByEmailThenCallRepository() {
 
-        when(repository.existsById(ID)).thenReturn(true);
-        boolean result = customerGateway.exists(CUSTOMER_ID);
+        when(repository.findByEmail(anyString())).thenReturn(Optional.of(CUSTOMER_ENTITY));
+        Optional<Customer> optionalCustomer = customerGateway.findByEmail(EMAIL);
 
-        assertTrue(result);
+        assertTrue(optionalCustomer.isPresent());
+        assertEquals(ID, optionalCustomer.get().getId().value());
 
-        verify(repository).existsById(ID);
-        verifyNoMoreInteractions(repository);
-    }
-
-    @Test
-    public void whenDoNotExistsThenCallRepository() {
-
-        when(repository.existsById(ID)).thenReturn(false);
-        boolean result = customerGateway.exists(CUSTOMER_ID);
-
-        assertFalse(result);
-
-        verify(repository).existsById(ID);
+        verify(repository).findByEmail(EMAIL);
         verifyNoMoreInteractions(repository);
     }
 

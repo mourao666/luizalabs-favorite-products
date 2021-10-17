@@ -79,6 +79,10 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>product-use-case</artifactId>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>jpa-postgresql-repository</artifactId>
+        </dependency>
 
     </dependencies>
 </project>
