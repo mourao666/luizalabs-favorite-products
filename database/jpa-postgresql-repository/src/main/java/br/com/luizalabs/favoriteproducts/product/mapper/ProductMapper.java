@@ -7,6 +7,10 @@ import br.com.luizalabs.favoriteproducts.product.domain.vo.ProductReviewScore;
 import br.com.luizalabs.favoriteproducts.product.entity.ProductEntity;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.commons.collections.CollectionUtils;
+import java.util.Collections;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ProductMapper {
@@ -31,5 +35,11 @@ public class ProductMapper {
             productEntity.getImage(),
             ProductReviewScore.from(productEntity.getReviewScore())
         );
+    }
+
+    public static Set<Product> parse(final Set<ProductEntity> productEntities) {
+        return CollectionUtils.isEmpty(productEntities)
+            ? Collections.emptySet()
+            : productEntities.stream().map(ProductMapper::toDomain).collect(Collectors.toSet());
     }
 }
