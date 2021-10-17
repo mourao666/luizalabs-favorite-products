@@ -9,6 +9,7 @@ import br.com.luizalabs.favoriteproducts.product.domain.vo.ProductId;
 import br.com.luizalabs.favoriteproducts.product.domain.vo.ProductPrice;
 import br.com.luizalabs.favoriteproducts.product.domain.vo.ProductReviewScore;
 import br.com.luizalabs.favoriteproducts.product.entity.ProductEntity;
+import br.com.luizalabs.favoriteproducts.product.entity.ProductEntityId;
 import br.com.luizalabs.favoriteproducts.product.repository.ProductEntityRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,6 +38,7 @@ public class ProductGatewayTest {
 
     private static final UUID CUSTOMER_UUID = UUID.fromString(CUSTOMER_STRING_ID);
     private static final UUID PRODUCT_UUID = UUID.fromString(PRODUCT_STRING_ID);
+    private static final ProductEntityId PRODUCT_ENTITY_ID = new ProductEntityId(PRODUCT_UUID, CUSTOMER_UUID);
 
     private static final CustomerId CUSTOMER_ID = CustomerId.from(CUSTOMER_STRING_ID);
     private static final ProductId PRODUCT_ID = ProductId.from(PRODUCT_STRING_ID);
@@ -44,7 +46,7 @@ public class ProductGatewayTest {
     private static final CustomerEntity CUSTOMER_ENTITY = new CustomerEntity(CUSTOMER_ID.value(), "Dummy", "dummy@testmail.com", CustomerEntityStatus.ACTIVE, null);
 
     private static final Product PRODUCT = new Product(PRODUCT_ID, "Ico & Shadow Of The Colossus para PS3", "sony", ProductPrice.from(79.0d), "http://challenge-api.luizalabs.com/images/b5116953-dbe5-7edc-c72e-377319e21d56.jpg", ProductReviewScore.from(5.0d));
-    private static final ProductEntity PRODUCT_ENTITY = new ProductEntity(PRODUCT_UUID, CUSTOMER_ENTITY, "Ico & Shadow Of The Colossus para PS3", "sony", BigDecimal.valueOf(79.0d), "http://challenge-api.luizalabs.com/images/b5116953-dbe5-7edc-c72e-377319e21d56.jpg", 5.0d);
+    private static final ProductEntity PRODUCT_ENTITY = new ProductEntity(PRODUCT_ENTITY_ID, CUSTOMER_ENTITY, "Ico & Shadow Of The Colossus para PS3", "sony", BigDecimal.valueOf(79.0d), "http://challenge-api.luizalabs.com/images/b5116953-dbe5-7edc-c72e-377319e21d56.jpg", 5.0d);
 
     static {
         CUSTOMER_ENTITY.setProducts(Set.of(PRODUCT_ENTITY));
@@ -73,37 +75,37 @@ public class ProductGatewayTest {
 
         ProductEntity productEntity = captor.getValue();
         assertNotNull(productEntity);
-        assertEquals(PRODUCT.getId().value(), productEntity.getId());
+        assertEquals(PRODUCT.getId().value(), productEntity.getId().getProductId());
     }
 
     @Test
     public void whenRemoveThenCallRepository() {
         productGateway.remove(PRODUCT_ID, CUSTOMER_ID);
-        verify(productRepository).deleteByIdAndCustomerId(PRODUCT_ID.value(), CUSTOMER_ID.value());
+        verify(productRepository).deleteById(PRODUCT_ENTITY_ID);
         verifyNoMoreInteractions(productRepository);
     }
 
     @Test
     public void whenAlreadyBeenAddedThenCallRepository() {
 
-        when(productRepository.findByIdAndCustomerId(PRODUCT_UUID, CUSTOMER_UUID)).thenReturn(Optional.of(PRODUCT_ENTITY));
+        when(productRepository.findById(PRODUCT_ENTITY_ID)).thenReturn(Optional.of(PRODUCT_ENTITY));
         boolean result = productGateway.alreadyBeenAdded(PRODUCT_ID, CUSTOMER_ID);
 
         assertTrue(result);
 
-        verify(productRepository).findByIdAndCustomerId(PRODUCT_UUID, CUSTOMER_UUID);
+        verify(productRepository).findById(PRODUCT_ENTITY_ID);
         verifyNoMoreInteractions(productRepository);
     }
 
     @Test
     public void whenNotBeenAddedThenCallRepository() {
 
-        when(productRepository.findByIdAndCustomerId(PRODUCT_UUID, CUSTOMER_UUID)).thenReturn(Optional.empty());
+        when(productRepository.findById(PRODUCT_ENTITY_ID)).thenReturn(Optional.empty());
         boolean result = productGateway.alreadyBeenAdded(PRODUCT_ID, CUSTOMER_ID);
 
         assertFalse(result);
 
-        verify(productRepository).findByIdAndCustomerId(PRODUCT_UUID, CUSTOMER_UUID);
+        verify(productRepository).findById(PRODUCT_ENTITY_ID);
         verifyNoMoreInteractions(productRepository);
     }
 

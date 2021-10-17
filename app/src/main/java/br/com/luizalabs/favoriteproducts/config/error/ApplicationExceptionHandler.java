@@ -28,6 +28,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
 
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        ex.printStackTrace();
         String path =  request.getContextPath() + ((ServletWebRequest) request).getRequest().getServletPath();
         return new ResponseEntity<>(new ErrorResponse((String) body, path), headers, status);
     }

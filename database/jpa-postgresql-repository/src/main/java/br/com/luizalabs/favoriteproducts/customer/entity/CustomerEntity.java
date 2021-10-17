@@ -3,8 +3,11 @@ package br.com.luizalabs.favoriteproducts.customer.entity;
 import br.com.luizalabs.favoriteproducts.product.entity.ProductEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,10 +21,13 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "customer")
-@Data
+@Getter
+@Setter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class CustomerEntity {
 
     @Id
@@ -30,6 +36,7 @@ public class CustomerEntity {
     @Column(nullable = false)
     private String name;
 
+    @EqualsAndHashCode.Include
     @Column(nullable = false, unique = true)
     private String email;
 
