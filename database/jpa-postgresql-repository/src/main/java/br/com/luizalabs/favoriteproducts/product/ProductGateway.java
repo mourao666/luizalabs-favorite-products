@@ -10,6 +10,8 @@ import br.com.luizalabs.favoriteproducts.product.entity.ProductEntityId;
 import br.com.luizalabs.favoriteproducts.product.mapper.ProductMapper;
 import br.com.luizalabs.favoriteproducts.product.repository.ProductEntityRepository;
 import br.com.luizalabs.favoriteproducts.product.usecase.port.Products;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -53,9 +55,9 @@ public class ProductGateway implements Products {
 
     @Override
     @Transactional
-    public Set<Product> search(CustomerId customerId) {
-        CustomerEntity customerEntity = customerRepository.getById(customerId.value());
-        Set<ProductEntity> productEntities = customerEntity.getProducts();
-        return ProductMapper.parse(productEntities);
+    public Set<Product> search(CustomerId customerId, int pageNumber, int pageSize) {
+        Page<ProductEntity> productEntities = productRepository
+            .findByCustomerId(customerId.value(), PageRequest.of(pageNumber, pageSize));
+        return ProductMapper.parse(Set.copyOf(productEntities.getContent()));
     }
 }

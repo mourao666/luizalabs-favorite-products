@@ -7,6 +7,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -39,7 +40,7 @@ public class InMemoryProducts implements Products {
     }
 
     @Override
-    public Set<Product> search(CustomerId customerId) {
-        return new HashSet<>(CUSTOMER_PRODUCTS.get(customerId).values());
+    public Set<Product> search(CustomerId customerId, int pageNumber, int pageSize) {
+        return new HashSet<>(List.copyOf(CUSTOMER_PRODUCTS.get(customerId).values()).subList(pageNumber, pageSize - 1));
     }
 }

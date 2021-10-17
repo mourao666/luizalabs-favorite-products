@@ -21,7 +21,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
     }
 
     @ExceptionHandler(value = { RuntimeException.class })
-    protected ResponseEntity<Object> handleBusinessException(RuntimeException e, WebRequest request) {
+    protected ResponseEntity<Object> handleRuntimeException(RuntimeException e, WebRequest request) {
         String message = StringUtils.isNotBlank(e.getMessage()) ? e.getMessage() : "Could not complete the operation";
         return this.handleExceptionInternal(e, message, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }

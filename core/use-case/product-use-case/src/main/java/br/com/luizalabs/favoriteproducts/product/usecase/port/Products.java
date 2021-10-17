@@ -13,5 +13,5 @@ public interface Products {
 
     boolean alreadyBeenAdded(ProductId productId, CustomerId customerId);
 
-    Set<Product> search(CustomerId customerId);
+    Set<Product> search(CustomerId customerId, int pageNumber, int pageSize);
 }

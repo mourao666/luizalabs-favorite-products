@@ -17,7 +17,10 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -112,14 +115,15 @@ public class ProductGatewayTest {
     @Test
     public void whenSearchThenCallRepository() {
 
-        when(customerRepository.getById(CUSTOMER_UUID)).thenReturn(CUSTOMER_ENTITY);
-        Set<Product> products = productGateway.search(CUSTOMER_ID);
+        when(productRepository.findByCustomerId(any(UUID.class), any(PageRequest.class)))
+            .thenReturn(new PageImpl<>(List.of(PRODUCT_ENTITY)));
+        Set<Product> products = productGateway.search(CUSTOMER_ID, 0, 1);
 
         assertNotNull(products);
         assertEquals(1, products.size());
         assertEquals(PRODUCT_ID, ((Product) products.toArray()[0]).getId());
 
-        verify(customerRepository).getById(CUSTOMER_UUID);
-        verifyNoMoreInteractions(customerRepository);
+        verify(productRepository).findByCustomerId(CUSTOMER_UUID, PageRequest.of(0, 1));
+        verifyNoMoreInteractions(productRepository);
     }
 }

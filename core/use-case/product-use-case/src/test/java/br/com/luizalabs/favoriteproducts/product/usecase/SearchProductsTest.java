@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -36,8 +37,8 @@ public class SearchProductsTest {
     @Test
     public void shouldBeSearchProductsWithSuccess() {
         when(findCustomer.findOne(any(CustomerId.class))).thenReturn(CUSTOMER);
-        when(products.search(any(CustomerId.class))).thenReturn(Collections.emptySet());
-        Set<Product> productsSet = searchProducts.search(CUSTOMER_ID);
+        when(products.search(any(CustomerId.class), anyInt(), anyInt())).thenReturn(Collections.emptySet());
+        Set<Product> productsSet = searchProducts.search(CUSTOMER_ID, 0, 1);
         assertNotNull(productsSet);
     }
 }

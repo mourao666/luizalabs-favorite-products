@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import javax.inject.Inject;
@@ -43,8 +44,10 @@ public class ProductController {
     }
 
     @GetMapping
-    public Set<ProductResponse> search(@PathVariable String customerId) {
-        Set<Product> productsSet = searchProducts.search(CustomerId.from(customerId));
+    public Set<ProductResponse> search(@PathVariable String customerId,
+                                       @RequestParam int pageNumber,
+                                       @RequestParam int pageSize) {
+        Set<Product> productsSet = searchProducts.search(CustomerId.from(customerId), pageNumber, pageSize);
         return ProductControllerMapper.toDtoSet(productsSet);
     }
 

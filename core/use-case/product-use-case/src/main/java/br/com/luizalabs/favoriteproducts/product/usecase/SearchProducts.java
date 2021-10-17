@@ -24,8 +24,8 @@ public class SearchProducts {
         this.findCustomer = findCustomer;
     }
 
-    public Set<Product> search(final CustomerId customerId) {
+    public Set<Product> search(final CustomerId customerId, int pageNumber, int pageSize) {
         Customer customer = findCustomer.findOne(customerId);
-        return products.search(customer.getId());
+        return products.search(customer.getId(), pageNumber, pageSize);
     }
 }
