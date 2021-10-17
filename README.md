@@ -33,7 +33,6 @@ docker run -d -p 5432:5432 --name postgres-favorite-products -e POSTGRES_PASSWOR
 # TO-DO
 
 - README com instruções de execução do projeto
-- add banco de dados
 - add rest client para a api de produtos
 - paginação na busca dos produtos
 - oauth

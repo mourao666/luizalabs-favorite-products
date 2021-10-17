@@ -63,4 +63,10 @@ public class CustomerController {
     public void delete(@PathVariable String id) {
         deleteCustomer.delete(CustomerId.from(id));
     }
+
+    @GetMapping("/{email}/by-email")
+    public CustomerResponse findByEmail(@PathVariable String email) {
+        Customer customer = findCustomer.findByEmail(email);
+        return CustomerControllerMapper.toDto(customer);
+    }
 }

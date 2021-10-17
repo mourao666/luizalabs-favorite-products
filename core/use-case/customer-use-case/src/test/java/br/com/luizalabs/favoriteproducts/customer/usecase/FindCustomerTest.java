@@ -1,6 +1,7 @@
 package br.com.luizalabs.favoriteproducts.customer.usecase;
 
 import br.com.luizalabs.favoriteproducts.customer.domain.Customer;
+import br.com.luizalabs.favoriteproducts.customer.domain.CustomerStatus;
 import br.com.luizalabs.favoriteproducts.customer.domain.vo.CustomerId;
 import br.com.luizalabs.favoriteproducts.customer.usecase.exception.CustomerNotFoundException;
 import br.com.luizalabs.favoriteproducts.customer.usecase.port.Customers;
@@ -13,6 +14,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -44,11 +46,45 @@ public class FindCustomerTest {
     @Test
     public void shouldBeFindCustomerWithSuccess() {
 
-        final Customer customer = new Customer(DEFAULT_NAME, DEFAULT_EMAIL);
+        final Customer customer = new Customer(DEFAULT_ID, DEFAULT_NAME, DEFAULT_EMAIL, CustomerStatus.INACTIVE);
 
         when(customers.find(any(CustomerId.class))).thenReturn(Optional.of(customer));
 
         final Customer foundCustomer = findCustomer.findOne(customer.getId());
+        assertNotNull(foundCustomer);
+    }
+
+    // endregion
+
+    // region find by email
+
+    @Test
+    public void shouldBeThrowsNullPointerExceptionWhenACustomerIsSearchedWithNullEmail() {
+        assertThrows(NullPointerException.class, () -> findCustomer.findByEmail(null));
+    }
+
+    @Test
+    public void shouldBeThrowsCustomerNotFoundExceptionWhenACustomerIsSearchedWithInvalidEmail() {
+        when(customers.findByEmail(anyString())).thenReturn(Optional.empty());
+        assertThrows(CustomerNotFoundException.class, () -> findCustomer.findByEmail(DEFAULT_EMAIL));
+    }
+
+
+    @Test
+    public void shouldBeThrowsCustomerNotFoundExceptionWhenACustomerIsSearchedWithValidEmailButInactive() {
+        final Customer customer = new Customer(DEFAULT_ID, DEFAULT_NAME, DEFAULT_EMAIL, CustomerStatus.INACTIVE);
+        when(customers.findByEmail(anyString())).thenReturn(Optional.of(customer));
+        assertThrows(CustomerNotFoundException.class, () -> findCustomer.findByEmail(DEFAULT_EMAIL));
+    }
+
+    @Test
+    public void shouldBeFindByEmailCustomerWithSuccess() {
+
+        final Customer customer = new Customer(DEFAULT_ID, DEFAULT_NAME, DEFAULT_EMAIL, CustomerStatus.ACTIVE);
+
+        when(customers.findByEmail(anyString())).thenReturn(Optional.of(customer));
+
+        final Customer foundCustomer = findCustomer.findByEmail(DEFAULT_EMAIL);
         assertNotNull(foundCustomer);
     }
 
