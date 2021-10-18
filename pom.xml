@@ -41,6 +41,13 @@
         <spring.boot.version>2.5.5</spring.boot.version>
     </properties>
 
+    <scm>
+        <connection>scm:git:git@github.com:mourao666/luizalabs-favorite-products.git</connection>
+        <developerConnection>scm:git:git@github.com:mourao666/luizalabs-favorite-products.git</developerConnection>
+        <url>git@github.com:mourao666/luizalabs-favorite-products.git</url>
+        <tag>HEAD</tag>
+    </scm>
+
     <build>
         <plugins>
             <!-- Maven Compiler -->
