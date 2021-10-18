@@ -287,7 +287,7 @@ curl --location --request PUT 'http://localhost:8080/v1/customers/5705436b-14bc-
 }
 ```
 
-Remover cliente cliente
+Remover cliente
 ```
 # Request
 curl --location --request DELETE 'http://localhost:8080/v1/customers/5705436b-14bc-4663-966f-b55df4c09c44' \
