@@ -8,7 +8,7 @@
         <relativePath>../../pom.xml</relativePath>
         <groupId>br.com.luizalabs.favoriteproducts</groupId>
         <artifactId>luizalabs-favorite-products</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>feign-rest-client</artifactId>

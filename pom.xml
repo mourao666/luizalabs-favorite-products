@@ -8,7 +8,7 @@
     <artifactId>luizalabs-favorite-products</artifactId>
 
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <modules>
         <module>core/domain/domain-model</module>
@@ -43,7 +43,7 @@
         <connection>scm:git:git@github.com:mourao666/luizalabs-favorite-products.git</connection>
         <developerConnection>scm:git:git@github.com:mourao666/luizalabs-favorite-products.git</developerConnection>
         <url>git@github.com:mourao666/luizalabs-favorite-products.git</url>
-        <tag>luizalabs-favorite-products-v1.0.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <build>
