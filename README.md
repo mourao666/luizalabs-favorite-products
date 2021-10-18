@@ -211,9 +211,145 @@ curl --location --request GET 'http://localhost:8080/v1/customers/87ade134-0eac-
 Junto com o projeto há as coleções e ambientes do **Postman** para facilitar os testes.  
 Está no caminho *$PROJECT_ROOT/documentation/postman/*  
 
-# TO-DO
+# Utilizando os serviços
 
-- README com instruções de execução do projeto
-- swagger
-- Logging
+O sistema provê as seguintes operações:  
+
+## Clientes
+
+Criar cliente
+```
+# Request
+curl --location --request POST 'http://localhost:8080/v1/customers' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ4VXFLa0ZrYlZWU3VBaGVVWFo2UkpVNUJjcmNLdW5lQkg4VHZOcmp0a1h3In0.eyJleHAiOjE2MzQ1NzY4NTYsImlhdCI6MTYzNDU3NjU1NiwianRpIjoiZWRhNTk2NDQtNGJiZC00NTE0LTllMGYtYjFhY2FmNDA5Y2E4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL0Zhdm9yaXRlUHJvZHVjdHMiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiZmU0NjU4ZmItNGJhMy00YzI5LWJhMDctNjBkNmFlYjZkMzI0IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiY2xpZW50LWFwcCIsInNlc3Npb25fc3RhdGUiOiJhN2FlMzdmOC0wNDIwLTRkMDktYTBhMy02MjQ2YjU5MzdlMjciLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMSJ9.CwEANoKUgaX02QapD5dMpD3SndCSdq-koocf6olZOEsmOE7L2xNMuCZBRkSWsF3-kIB2BNJYrekZu2mc4VBVqxAegV8J10zGMcv2RM3NY8qVV0ATR0NZuMpr9AnH86m6DfF3Rppc056ePH6Yf8rYoFUDNfjLlQ7KuIgEexh2npHC-hc8oEIIsjSFBOQXyjyqRuTfaPrYs89TLu44C4VnlRJuAEJKcINvZtELbAIv3jdUVFhCHZktSwf2ZGP7QnCF1GHhER9l0WECl9bOKEvcFvBXhh3pWxZFzaImqim-YeKJtKsRD_bKl38ABjnarK1W4sVxv3A2lhMXi-C72dLr4A' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=41A49FF0ABEE5B949D0458D77F4B1B70' \
+--data-raw '{
+    "name": "Dummy",
+    "email": "dummy@testmail.com"
+}'
+
+# Response
+{
+    "id": "5705436b-14bc-4663-966f-b55df4c09c44",
+    "name": "Dummy",
+    "email": "dummy@testmail.com"
+}
+```
+
+Buscar cliente pelo *id*
+```
+# Request
+curl --location --request GET 'http://localhost:8080/v1/customers/5705436b-14bc-4663-966f-b55df4c09c44' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ4VXFLa0ZrYlZWU3VBaGVVWFo2UkpVNUJjcmNLdW5lQkg4VHZOcmp0a1h3In0.eyJleHAiOjE2MzQ1NzY4NTYsImlhdCI6MTYzNDU3NjU1NiwianRpIjoiZWRhNTk2NDQtNGJiZC00NTE0LTllMGYtYjFhY2FmNDA5Y2E4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL0Zhdm9yaXRlUHJvZHVjdHMiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiZmU0NjU4ZmItNGJhMy00YzI5LWJhMDctNjBkNmFlYjZkMzI0IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiY2xpZW50LWFwcCIsInNlc3Npb25fc3RhdGUiOiJhN2FlMzdmOC0wNDIwLTRkMDktYTBhMy02MjQ2YjU5MzdlMjciLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMSJ9.CwEANoKUgaX02QapD5dMpD3SndCSdq-koocf6olZOEsmOE7L2xNMuCZBRkSWsF3-kIB2BNJYrekZu2mc4VBVqxAegV8J10zGMcv2RM3NY8qVV0ATR0NZuMpr9AnH86m6DfF3Rppc056ePH6Yf8rYoFUDNfjLlQ7KuIgEexh2npHC-hc8oEIIsjSFBOQXyjyqRuTfaPrYs89TLu44C4VnlRJuAEJKcINvZtELbAIv3jdUVFhCHZktSwf2ZGP7QnCF1GHhER9l0WECl9bOKEvcFvBXhh3pWxZFzaImqim-YeKJtKsRD_bKl38ABjnarK1W4sVxv3A2lhMXi-C72dLr4A' \
+--header 'Cookie: JSESSIONID=41A49FF0ABEE5B949D0458D77F4B1B70'
+
+# Response
+{
+    "id": "5705436b-14bc-4663-966f-b55df4c09c44",
+    "name": "Dummy",
+    "email": "dummy@testmail.com"
+}
+```
+
+Buscar cliente pelo *email*
+```
+# Request
+curl --location --request GET 'http://localhost:8080/v1/customers/dummy@testmail.com/by-email' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ4VXFLa0ZrYlZWU3VBaGVVWFo2UkpVNUJjcmNLdW5lQkg4VHZOcmp0a1h3In0.eyJleHAiOjE2MzQ1NzY4NTYsImlhdCI6MTYzNDU3NjU1NiwianRpIjoiZWRhNTk2NDQtNGJiZC00NTE0LTllMGYtYjFhY2FmNDA5Y2E4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL0Zhdm9yaXRlUHJvZHVjdHMiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiZmU0NjU4ZmItNGJhMy00YzI5LWJhMDctNjBkNmFlYjZkMzI0IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiY2xpZW50LWFwcCIsInNlc3Npb25fc3RhdGUiOiJhN2FlMzdmOC0wNDIwLTRkMDktYTBhMy02MjQ2YjU5MzdlMjciLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMSJ9.CwEANoKUgaX02QapD5dMpD3SndCSdq-koocf6olZOEsmOE7L2xNMuCZBRkSWsF3-kIB2BNJYrekZu2mc4VBVqxAegV8J10zGMcv2RM3NY8qVV0ATR0NZuMpr9AnH86m6DfF3Rppc056ePH6Yf8rYoFUDNfjLlQ7KuIgEexh2npHC-hc8oEIIsjSFBOQXyjyqRuTfaPrYs89TLu44C4VnlRJuAEJKcINvZtELbAIv3jdUVFhCHZktSwf2ZGP7QnCF1GHhER9l0WECl9bOKEvcFvBXhh3pWxZFzaImqim-YeKJtKsRD_bKl38ABjnarK1W4sVxv3A2lhMXi-C72dLr4A' \
+--header 'Cookie: JSESSIONID=41A49FF0ABEE5B949D0458D77F4B1B70'
+
+# Response
+{
+    "id": "5705436b-14bc-4663-966f-b55df4c09c44",
+    "name": "Dummy",
+    "email": "dummy@testmail.com"
+}
+```
+
+Alterar dados cliente
+```
+# Request
+curl --location --request PUT 'http://localhost:8080/v1/customers/5705436b-14bc-4663-966f-b55df4c09c44' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ4VXFLa0ZrYlZWU3VBaGVVWFo2UkpVNUJjcmNLdW5lQkg4VHZOcmp0a1h3In0.eyJleHAiOjE2MzQ1NzY4NTYsImlhdCI6MTYzNDU3NjU1NiwianRpIjoiZWRhNTk2NDQtNGJiZC00NTE0LTllMGYtYjFhY2FmNDA5Y2E4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL0Zhdm9yaXRlUHJvZHVjdHMiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiZmU0NjU4ZmItNGJhMy00YzI5LWJhMDctNjBkNmFlYjZkMzI0IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiY2xpZW50LWFwcCIsInNlc3Npb25fc3RhdGUiOiJhN2FlMzdmOC0wNDIwLTRkMDktYTBhMy02MjQ2YjU5MzdlMjciLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMSJ9.CwEANoKUgaX02QapD5dMpD3SndCSdq-koocf6olZOEsmOE7L2xNMuCZBRkSWsF3-kIB2BNJYrekZu2mc4VBVqxAegV8J10zGMcv2RM3NY8qVV0ATR0NZuMpr9AnH86m6DfF3Rppc056ePH6Yf8rYoFUDNfjLlQ7KuIgEexh2npHC-hc8oEIIsjSFBOQXyjyqRuTfaPrYs89TLu44C4VnlRJuAEJKcINvZtELbAIv3jdUVFhCHZktSwf2ZGP7QnCF1GHhER9l0WECl9bOKEvcFvBXhh3pWxZFzaImqim-YeKJtKsRD_bKl38ABjnarK1W4sVxv3A2lhMXi-C72dLr4A' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=41A49FF0ABEE5B949D0458D77F4B1B70' \
+--data-raw '{
+    "name": "Dummy",
+    "email": "dummy@testmail.com"
+}'
+
+# Response
+{
+    "id": "5705436b-14bc-4663-966f-b55df4c09c44",
+    "name": "Dummy",
+    "email": "dummy@testmail.com"
+}
+```
+
+Remover cliente cliente
+```
+# Request
+curl --location --request DELETE 'http://localhost:8080/v1/customers/5705436b-14bc-4663-966f-b55df4c09c44' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ4VXFLa0ZrYlZWU3VBaGVVWFo2UkpVNUJjcmNLdW5lQkg4VHZOcmp0a1h3In0.eyJleHAiOjE2MzQ1NzY4NTYsImlhdCI6MTYzNDU3NjU1NiwianRpIjoiZWRhNTk2NDQtNGJiZC00NTE0LTllMGYtYjFhY2FmNDA5Y2E4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL0Zhdm9yaXRlUHJvZHVjdHMiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiZmU0NjU4ZmItNGJhMy00YzI5LWJhMDctNjBkNmFlYjZkMzI0IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiY2xpZW50LWFwcCIsInNlc3Npb25fc3RhdGUiOiJhN2FlMzdmOC0wNDIwLTRkMDktYTBhMy02MjQ2YjU5MzdlMjciLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMSJ9.CwEANoKUgaX02QapD5dMpD3SndCSdq-koocf6olZOEsmOE7L2xNMuCZBRkSWsF3-kIB2BNJYrekZu2mc4VBVqxAegV8J10zGMcv2RM3NY8qVV0ATR0NZuMpr9AnH86m6DfF3Rppc056ePH6Yf8rYoFUDNfjLlQ7KuIgEexh2npHC-hc8oEIIsjSFBOQXyjyqRuTfaPrYs89TLu44C4VnlRJuAEJKcINvZtELbAIv3jdUVFhCHZktSwf2ZGP7QnCF1GHhER9l0WECl9bOKEvcFvBXhh3pWxZFzaImqim-YeKJtKsRD_bKl38ABjnarK1W4sVxv3A2lhMXi-C72dLr4A' \
+--header 'Cookie: JSESSIONID=41A49FF0ABEE5B949D0458D77F4B1B70'
+
+# Response
+204 No Content
+```
+
+## Produtos
+
+Adicionar produto na lista de um cliente
+```
+# Request
+curl --location --request POST 'http://localhost:8080/v1/customers/5705436b-14bc-4663-966f-b55df4c09c44/products' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ4VXFLa0ZrYlZWU3VBaGVVWFo2UkpVNUJjcmNLdW5lQkg4VHZOcmp0a1h3In0.eyJleHAiOjE2MzQ1NzY4NTYsImlhdCI6MTYzNDU3NjU1NiwianRpIjoiZWRhNTk2NDQtNGJiZC00NTE0LTllMGYtYjFhY2FmNDA5Y2E4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL0Zhdm9yaXRlUHJvZHVjdHMiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiZmU0NjU4ZmItNGJhMy00YzI5LWJhMDctNjBkNmFlYjZkMzI0IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiY2xpZW50LWFwcCIsInNlc3Npb25fc3RhdGUiOiJhN2FlMzdmOC0wNDIwLTRkMDktYTBhMy02MjQ2YjU5MzdlMjciLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMSJ9.CwEANoKUgaX02QapD5dMpD3SndCSdq-koocf6olZOEsmOE7L2xNMuCZBRkSWsF3-kIB2BNJYrekZu2mc4VBVqxAegV8J10zGMcv2RM3NY8qVV0ATR0NZuMpr9AnH86m6DfF3Rppc056ePH6Yf8rYoFUDNfjLlQ7KuIgEexh2npHC-hc8oEIIsjSFBOQXyjyqRuTfaPrYs89TLu44C4VnlRJuAEJKcINvZtELbAIv3jdUVFhCHZktSwf2ZGP7QnCF1GHhER9l0WECl9bOKEvcFvBXhh3pWxZFzaImqim-YeKJtKsRD_bKl38ABjnarK1W4sVxv3A2lhMXi-C72dLr4A' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=41A49FF0ABEE5B949D0458D77F4B1B70' \
+--data-raw '{
+    "productId": "b5116953-dbe5-7edc-c72e-377319e21d56"
+}'
+
+# Response
+{
+    "id": "b5116953-dbe5-7edc-c72e-377319e21d56",
+    "title": "Ico & Shadow Of The Colossus para PS3",
+    "brand": "sony",
+    "price": 79.00,
+    "image": "http://challenge-api.luizalabs.com/images/b5116953-dbe5-7edc-c72e-377319e21d56.jpg",
+    "reviewScore": 5.0
+}
+```
+
+Buscar produtos da lista do cliente
+```
+# Request
+curl --location --request GET 'http://localhost:8080/v1/customers/5705436b-14bc-4663-966f-b55df4c09c44/products?pageNumber=0&pageSize=3' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ4VXFLa0ZrYlZWU3VBaGVVWFo2UkpVNUJjcmNLdW5lQkg4VHZOcmp0a1h3In0.eyJleHAiOjE2MzQ1NzY4NTYsImlhdCI6MTYzNDU3NjU1NiwianRpIjoiZWRhNTk2NDQtNGJiZC00NTE0LTllMGYtYjFhY2FmNDA5Y2E4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL0Zhdm9yaXRlUHJvZHVjdHMiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiZmU0NjU4ZmItNGJhMy00YzI5LWJhMDctNjBkNmFlYjZkMzI0IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiY2xpZW50LWFwcCIsInNlc3Npb25fc3RhdGUiOiJhN2FlMzdmOC0wNDIwLTRkMDktYTBhMy02MjQ2YjU5MzdlMjciLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMSJ9.CwEANoKUgaX02QapD5dMpD3SndCSdq-koocf6olZOEsmOE7L2xNMuCZBRkSWsF3-kIB2BNJYrekZu2mc4VBVqxAegV8J10zGMcv2RM3NY8qVV0ATR0NZuMpr9AnH86m6DfF3Rppc056ePH6Yf8rYoFUDNfjLlQ7KuIgEexh2npHC-hc8oEIIsjSFBOQXyjyqRuTfaPrYs89TLu44C4VnlRJuAEJKcINvZtELbAIv3jdUVFhCHZktSwf2ZGP7QnCF1GHhER9l0WECl9bOKEvcFvBXhh3pWxZFzaImqim-YeKJtKsRD_bKl38ABjnarK1W4sVxv3A2lhMXi-C72dLr4A' \
+--header 'Cookie: JSESSIONID=41A49FF0ABEE5B949D0458D77F4B1B70'
+
+# Response
+[
+    {
+        "id": "b5116953-dbe5-7edc-c72e-377319e21d56",
+        "title": "Ico & Shadow Of The Colossus para PS3",
+        "brand": "sony",
+        "price": 79.00,
+        "image": "http://challenge-api.luizalabs.com/images/b5116953-dbe5-7edc-c72e-377319e21d56.jpg",
+        "reviewScore": 5.0
+    }
+]
+```
+
+Remover produto da lista do cliente
+```
+# Request
+curl --location --request DELETE 'http://localhost:8080/v1/customers/5705436b-14bc-4663-966f-b55df4c09c44/products/b5116953-dbe5-7edc-c72e-377319e21d56' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ4VXFLa0ZrYlZWU3VBaGVVWFo2UkpVNUJjcmNLdW5lQkg4VHZOcmp0a1h3In0.eyJleHAiOjE2MzQ1NzY4NTYsImlhdCI6MTYzNDU3NjU1NiwianRpIjoiZWRhNTk2NDQtNGJiZC00NTE0LTllMGYtYjFhY2FmNDA5Y2E4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL0Zhdm9yaXRlUHJvZHVjdHMiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiZmU0NjU4ZmItNGJhMy00YzI5LWJhMDctNjBkNmFlYjZkMzI0IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiY2xpZW50LWFwcCIsInNlc3Npb25fc3RhdGUiOiJhN2FlMzdmOC0wNDIwLTRkMDktYTBhMy02MjQ2YjU5MzdlMjciLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyMSJ9.CwEANoKUgaX02QapD5dMpD3SndCSdq-koocf6olZOEsmOE7L2xNMuCZBRkSWsF3-kIB2BNJYrekZu2mc4VBVqxAegV8J10zGMcv2RM3NY8qVV0ATR0NZuMpr9AnH86m6DfF3Rppc056ePH6Yf8rYoFUDNfjLlQ7KuIgEexh2npHC-hc8oEIIsjSFBOQXyjyqRuTfaPrYs89TLu44C4VnlRJuAEJKcINvZtELbAIv3jdUVFhCHZktSwf2ZGP7QnCF1GHhER9l0WECl9bOKEvcFvBXhh3pWxZFzaImqim-YeKJtKsRD_bKl38ABjnarK1W4sVxv3A2lhMXi-C72dLr4A' \
+--header 'Cookie: JSESSIONID=41A49FF0ABEE5B949D0458D77F4B1B70'
+
+# Response
+204 No Content
+```
 
