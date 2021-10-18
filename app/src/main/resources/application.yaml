@@ -19,3 +19,10 @@ spring:
 server:
   servlet:
     contextPath: /v1
+
+feign:
+  okhttp:
+    enabled: true
+  client:
+    product:
+      url: http://challenge-api.luizalabs.com/api/product

@@ -19,6 +19,7 @@
         <module>core/use-case/customer-use-case</module>
         <module>core/use-case/product-use-case</module>
         <module>database/jpa-postgresql-repository</module>
+        <module>rest-client/feign-rest-client</module>
         <module>app</module>
     </modules>
 
@@ -35,6 +36,7 @@
         <junit.version>5.7.2</junit.version>
         <lombok.version>1.18.22</lombok.version>
         <mockito.version>4.0.0</mockito.version>
+        <spring.cloud.version>3.0.4</spring.cloud.version>
         <spring.boot.version>2.5.5</spring.boot.version>
     </properties>
 
@@ -127,6 +129,11 @@
                 <artifactId>jpa-postgresql-repository</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>feign-rest-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <!-- Lombok -->
             <dependency>
@@ -145,6 +152,15 @@
                 <groupId>commons-validator</groupId>
                 <artifactId>commons-validator</artifactId>
                 <version>${apache.commons.validator.version}</version>
+            </dependency>
+
+            <!-- Spring Boot -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
         </dependencies>

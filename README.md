@@ -4,6 +4,7 @@
 
 ## Dependências
 
+- Java 11
 - [Maven](https://maven.apache.org/)
 - [Docker](https://www.docker.com/) (opcional)
 - [PostgreSQL](https://www.postgresql.org/)
@@ -48,11 +49,28 @@ $PROJECT_ROOT/database/jpa-postgresql-repository/src/main/resources/create.sql
 
 ## Aplicação
 
+Para compilar o projeto execute o comando na raiz do projeto:
+```
+mvn clean install
+```
+
+Para executar o projeto execute o comando na raiz do projeto:
+```
+mvn -f ./app/pom.xml spring-boot:run
+```
+Para executar o projeto em modo *debug* (é necessário anexar um *debugger* na porta 5005):
+```
+mvn -f ./app/pom.xml spring-boot:run  -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"
+```
+Alternativamente é possível executar o projeto com o comando:
+```
+java -jar ./app/target/favorite-products.jar
+```
 
 # TO-DO
 
 - README com instruções de execução do projeto
-- add rest client para a api de produtos
 - oauth
 - swagger
+- Logging
 

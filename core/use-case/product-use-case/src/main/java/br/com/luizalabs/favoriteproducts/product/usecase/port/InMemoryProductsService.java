@@ -10,8 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-@Named
-@ApplicationScoped
+//@Named
+//@ApplicationScoped
 public class InMemoryProductsService implements ProductsService {
 
     private static final Map<ProductId, Product> PRODUCTS = new HashMap<>() {
