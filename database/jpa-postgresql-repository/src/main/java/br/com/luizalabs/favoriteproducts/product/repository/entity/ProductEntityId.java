@@ -1,4 +1,4 @@
-package br.com.luizalabs.favoriteproducts.product.entity;
+package br.com.luizalabs.favoriteproducts.product.repository.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

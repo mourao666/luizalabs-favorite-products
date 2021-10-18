@@ -1,16 +1,17 @@
 package br.com.luizalabs.favoriteproducts.product;
 
 import br.com.luizalabs.favoriteproducts.customer.domain.vo.CustomerId;
-import br.com.luizalabs.favoriteproducts.customer.entity.CustomerEntity;
-import br.com.luizalabs.favoriteproducts.customer.entity.CustomerEntityStatus;
-import br.com.luizalabs.favoriteproducts.customer.repository.CustomerEntityRepository;
+import br.com.luizalabs.favoriteproducts.customer.repository.entity.CustomerEntity;
+import br.com.luizalabs.favoriteproducts.customer.repository.entity.CustomerEntityStatus;
+import br.com.luizalabs.favoriteproducts.customer.repository.entity.CustomerEntityRepository;
 import br.com.luizalabs.favoriteproducts.product.domain.Product;
 import br.com.luizalabs.favoriteproducts.product.domain.vo.ProductId;
 import br.com.luizalabs.favoriteproducts.product.domain.vo.ProductPrice;
 import br.com.luizalabs.favoriteproducts.product.domain.vo.ProductReviewScore;
-import br.com.luizalabs.favoriteproducts.product.entity.ProductEntity;
-import br.com.luizalabs.favoriteproducts.product.entity.ProductEntityId;
-import br.com.luizalabs.favoriteproducts.product.repository.ProductEntityRepository;
+import br.com.luizalabs.favoriteproducts.product.repository.entity.ProductEntity;
+import br.com.luizalabs.favoriteproducts.product.repository.entity.ProductEntityId;
+import br.com.luizalabs.favoriteproducts.product.repository.entity.ProductEntityRepository;
+import br.com.luizalabs.favoriteproducts.product.repository.ProductGateway;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;

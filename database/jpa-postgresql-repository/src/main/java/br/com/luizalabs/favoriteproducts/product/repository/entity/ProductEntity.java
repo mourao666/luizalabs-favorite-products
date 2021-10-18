@@ -1,6 +1,6 @@
-package br.com.luizalabs.favoriteproducts.product.entity;
+package br.com.luizalabs.favoriteproducts.product.repository.entity;
 
-import br.com.luizalabs.favoriteproducts.customer.entity.CustomerEntity;
+import br.com.luizalabs.favoriteproducts.customer.repository.entity.CustomerEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

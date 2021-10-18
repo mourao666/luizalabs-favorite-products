@@ -1,10 +1,10 @@
-package br.com.luizalabs.favoriteproducts.customer.mapper;
+package br.com.luizalabs.favoriteproducts.customer.repository.mapper;
 
 import br.com.luizalabs.favoriteproducts.customer.domain.Customer;
 import br.com.luizalabs.favoriteproducts.customer.domain.CustomerStatus;
 import br.com.luizalabs.favoriteproducts.customer.domain.vo.CustomerId;
-import br.com.luizalabs.favoriteproducts.customer.entity.CustomerEntity;
-import br.com.luizalabs.favoriteproducts.customer.entity.CustomerEntityStatus;
+import br.com.luizalabs.favoriteproducts.customer.repository.entity.CustomerEntity;
+import br.com.luizalabs.favoriteproducts.customer.repository.entity.CustomerEntityStatus;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

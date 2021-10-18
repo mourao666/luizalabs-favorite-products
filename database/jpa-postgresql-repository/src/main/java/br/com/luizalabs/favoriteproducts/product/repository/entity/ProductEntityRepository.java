@@ -1,7 +1,5 @@
-package br.com.luizalabs.favoriteproducts.product.repository;
+package br.com.luizalabs.favoriteproducts.product.repository.entity;
 
-import br.com.luizalabs.favoriteproducts.product.entity.ProductEntity;
-import br.com.luizalabs.favoriteproducts.product.entity.ProductEntityId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

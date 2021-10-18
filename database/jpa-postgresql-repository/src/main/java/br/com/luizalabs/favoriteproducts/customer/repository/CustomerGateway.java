@@ -1,11 +1,11 @@
-package br.com.luizalabs.favoriteproducts.customer;
+package br.com.luizalabs.favoriteproducts.customer.repository;
 
 import br.com.luizalabs.favoriteproducts.customer.domain.Customer;
 import br.com.luizalabs.favoriteproducts.customer.domain.vo.CustomerId;
-import br.com.luizalabs.favoriteproducts.customer.entity.CustomerEntity;
-import br.com.luizalabs.favoriteproducts.customer.entity.CustomerEntityStatus;
-import br.com.luizalabs.favoriteproducts.customer.mapper.CustomerMapper;
-import br.com.luizalabs.favoriteproducts.customer.repository.CustomerEntityRepository;
+import br.com.luizalabs.favoriteproducts.customer.repository.entity.CustomerEntity;
+import br.com.luizalabs.favoriteproducts.customer.repository.entity.CustomerEntityRepository;
+import br.com.luizalabs.favoriteproducts.customer.repository.entity.CustomerEntityStatus;
+import br.com.luizalabs.favoriteproducts.customer.repository.mapper.CustomerMapper;
 import br.com.luizalabs.favoriteproducts.customer.usecase.port.Customers;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

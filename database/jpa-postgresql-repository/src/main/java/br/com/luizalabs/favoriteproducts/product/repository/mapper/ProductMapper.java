@@ -1,12 +1,12 @@
-package br.com.luizalabs.favoriteproducts.product.mapper;
+package br.com.luizalabs.favoriteproducts.product.repository.mapper;
 
 import br.com.luizalabs.favoriteproducts.customer.domain.vo.CustomerId;
 import br.com.luizalabs.favoriteproducts.product.domain.Product;
 import br.com.luizalabs.favoriteproducts.product.domain.vo.ProductId;
 import br.com.luizalabs.favoriteproducts.product.domain.vo.ProductPrice;
 import br.com.luizalabs.favoriteproducts.product.domain.vo.ProductReviewScore;
-import br.com.luizalabs.favoriteproducts.product.entity.ProductEntity;
-import br.com.luizalabs.favoriteproducts.product.entity.ProductEntityId;
+import br.com.luizalabs.favoriteproducts.product.repository.entity.ProductEntity;
+import br.com.luizalabs.favoriteproducts.product.repository.entity.ProductEntityId;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.commons.collections.CollectionUtils;
