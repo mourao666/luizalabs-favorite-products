@@ -21,6 +21,7 @@
         <module>database/jpa-postgresql-repository</module>
         <module>rest-client/feign-rest-client</module>
         <module>app</module>
+        <module>authorization</module>
     </modules>
 
     <properties>

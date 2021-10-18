@@ -15,6 +15,13 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: update
+  security:
+    oauth2:
+      enable: true
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8180/auth/realms/FavoriteProducts
+          jwk-set-uri: http://localhost:8180/auth/realms/FavoriteProducts/protocol/openid-connect/certs
 
 server:
   servlet:

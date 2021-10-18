@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: authorization-server
+  jpa:
+    defer-datasource-initialization: true
+  datasource:
+    username: sa
+    url: jdbc:h2:mem:customdb
+
+server:
+  port: 8180
+
+keycloak:
+  server:
+    contextPath: /auth
+    adminUser:
+      username: admin
+      password: adminPass
+    realmImportFile: favorite-products-realm.json
