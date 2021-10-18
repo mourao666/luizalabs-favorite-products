@@ -3,6 +3,7 @@ package br.com.luizalabs.favoriteproducts.config.error;
 import br.com.luizalabs.favoriteproducts.config.error.dto.ErrorResponse;
 import br.com.luizalabs.favoriteproducts.domain.exception.BusinessException;
 import feign.FeignException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+@Slf4j
 @ControllerAdvice
 public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -34,8 +36,8 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
     }
 
     @Override
-    protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        ex.printStackTrace();
+    protected ResponseEntity<Object> handleExceptionInternal(Exception e, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        log.error(e.getMessage(), e);
         String path =  request.getContextPath() + ((ServletWebRequest) request).getRequest().getServletPath();
         return new ResponseEntity<>(new ErrorResponse((String) body, path), headers, status);
     }
